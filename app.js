@@ -85,4 +85,7 @@ document.querySelectorAll('.collection-item').forEach(function(task){//targeting
   });
 }
 
+function(){
+  
+}
 
