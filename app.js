@@ -8,8 +8,9 @@ const taskInput = document.querySelector('#task');
 // Load all event listeners
 loadEventListeners();
 
-// Load all event listeners
+  // Load all event listeners
 function loadEventListeners() {
+  document.addEventListener('DOMContentLoaded', getTasks);
   // Add task event
   form.addEventListener('submit', addTask);
   //remove task item
@@ -18,6 +19,41 @@ function loadEventListeners() {
   clearBtn.addEventListener('click', clearTasks);
   //filter task event
   filter.addEventListener('keyup', filterTasks);
+}
+
+function getTasks(){
+  let tasks;
+if(localStorage.getItem('tasks') === null){
+  tasks = [];
+  } else {
+  tasks = JSON.parse(localStorage.getItem('tasks'));
+  }
+
+  tasks.forEach(function(task){
+     //create li element for input task lists
+  const li = document.createElement('li');
+  
+  //li element needs a class (materialze classes)
+  li.className = 'collection-item';//materilaze class
+  
+  //creat the text node on the li and append to li
+  li.appendChild(document.createTextNode(task));
+ 
+  //create the delete button link element
+  const link = document.createElement('a');
+  
+  //link element needs a class name
+  link.className = 'delete-item secondary-content';
+ 
+  //add icon html
+  link.innerHTML = '<i class="fa fa-remove"></i>';
+  
+  //append the link to the li
+  li.appendChild(link);
+
+  //append li to the ul
+  taskList.appendChild(li);
+  });
 }
 
 // Add Task
@@ -60,6 +96,19 @@ function addTask(e) {
   e.preventDefault();
 }
 
+//Store task
+function storeTaskInLocalStorage(task){
+let tasks;
+if(localStorage.getItem('tasks') === null){
+  tasks = [];
+} else {
+  tasks = JSON.parse(localStorage.getItem('tasks'));
+}
+  tasks.push(task);
+
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
 //Remove task item
 function removeTask(e) {
   if(e.target.parentElement.classList.contains('delete-item')) {
@@ -86,8 +135,4 @@ document.querySelectorAll('.collection-item').forEach(function(task){//targeting
 
   }
   });
-}
-
-function(){
-  
 }
