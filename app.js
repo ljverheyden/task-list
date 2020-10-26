@@ -50,6 +50,9 @@ function addTask(e) {
   //append li to the ul
   taskList.appendChild(li);
 
+  //persist to local storage
+  storeTaskInLocalStorage(taskInput.value);
+
   //clear input text
   taskInput.value = '';
 
@@ -84,8 +87,3 @@ document.querySelectorAll('.collection-item').forEach(function(task){//targeting
   }
   });
 }
-
-function(){
-  
-}
-
